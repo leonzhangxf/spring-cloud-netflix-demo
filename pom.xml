@@ -21,15 +21,19 @@
         <project.encoding>UTF-8</project.encoding>
         <java.version>1.8</java.version>
 
-        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
+        <!-- spring -->
+        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
 
+        <!-- dao -->
         <mysql.connector.version>6.0.6</mysql.connector.version>
         <mybatis.spring.boot.version>1.3.2</mybatis.spring.boot.version>
         <mybatis.pagehelper.version>1.2.5</mybatis.pagehelper.version>
 
+        <!-- util -->
         <swagger.version>2.8.0</swagger.version>
         <jackson.version>2.9.6</jackson.version>
 
+        <!-- plugin -->
         <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
