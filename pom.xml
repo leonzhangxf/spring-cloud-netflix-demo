@@ -14,7 +14,10 @@
     </description>
 
     <modules>
-        <module>cd-common</module>
+        <!-- 配置服务 -->
+        <module>config-server</module>
+        <!-- 注册服务eureka -->
+        <module>eureka-server</module>
     </modules>
 
     <!--
@@ -27,6 +30,7 @@
 
         <!-- spring -->
         <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <spring.cloud.version>Finchley.SR2</spring.cloud.version>
 
         <!-- dao -->
         <mysql.connector.version>6.0.6</mysql.connector.version>
@@ -49,6 +53,7 @@
      -->
     <dependencyManagement>
         <dependencies>
+            <!-- spring boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
@@ -70,6 +75,15 @@
                 <artifactId>spring-boot-devtools</artifactId>
                 <version>${spring.boot.version}</version>
                 <optional>true</optional>
+            </dependency>
+
+            <!-- spring cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- dao -->
