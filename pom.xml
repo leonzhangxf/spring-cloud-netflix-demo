@@ -13,6 +13,10 @@
         spring cloud 使用demo
     </description>
 
+    <modules>
+        <module>cd-common</module>
+    </modules>
+
     <!--
         顶层pom项目负责定义全局的一些属性，来规定各个依赖的版本。
         除了特别情况，严禁在模块中单独进行依赖版本管理。
