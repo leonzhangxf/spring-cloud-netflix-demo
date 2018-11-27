@@ -15,16 +15,16 @@
 
     <modules>
         <!-- 配置服务 -->
-        <module>config-server</module>
+        <module>config-server-dist</module>
         <!-- 注册服务eureka -->
-        <module>eureka-server</module>
+        <module>eureka-server-dist</module>
 
         <!-- 公共包 -->
         <module>cd-common</module>
 
         <!-- client demo -->
-        <module>client-demo-a</module>
-        <module>client-demo-b</module>
+        <module>client-demo-a-dist</module>
+        <module>client-demo-b-dist</module>
         <!-- client demmo open api -->
         <module>client-demo-a-api</module>
         <module>cd-common-api</module>

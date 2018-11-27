@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>client-demo-b</artifactId>
+    <artifactId>client-demo-a-dist</artifactId>
 
     <description>
-        client demo b
+        client demo a
     </description>
 
     <dependencies>
