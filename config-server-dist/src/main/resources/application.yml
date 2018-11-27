@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-server
+    name: config-server-dist
   profiles:
     active: native
     include: @profileActive@

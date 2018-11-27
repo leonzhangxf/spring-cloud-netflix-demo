@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: client-demo-a
+    name: client-demo-a-dist
   cloud:
     config:
       label: master
