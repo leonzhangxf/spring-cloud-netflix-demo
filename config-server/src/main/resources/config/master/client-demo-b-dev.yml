@@ -1,7 +1,7 @@
 swagger:
   enabled: true
-  title: clientdemoa接口文档111
-  description: clientdemoa接口文档描述
+  title: clientdemob接口文档
+  description: clientdemob接口文档描述
   contact:
     name: 张晓峰
     url: https://leonzhangxf.com

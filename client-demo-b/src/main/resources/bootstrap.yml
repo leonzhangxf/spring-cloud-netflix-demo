@@ -1,9 +1,9 @@
 server:
-  port: 10010
+  port: 10011
 
 spring:
   application:
-    name: client-demo-a
+    name: client-demo-b
   cloud:
     config:
       label: master
@@ -23,3 +23,12 @@ management:
     web:
       exposure:
         include: "*"
+
+feign:
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true

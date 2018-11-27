@@ -9,6 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +29,9 @@ public class ClientDemoAApplication {
     private String value;
 
     @GetMapping("value")
-    public String value() {
+    public ResponseEntity<String> value() {
         System.out.println(value);
-        return value;
+        return ResponseEntity.ok(value);
     }
 
     @Value("${swagger.title:aaaaa}")
