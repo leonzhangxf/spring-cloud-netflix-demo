@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient("client-demo-a")
+@FeignClient(value = "client-demo-a-dist", fallback = ClientDemoAClientFallback.class)
 @Component
 public interface ClientDemoAClient {
 

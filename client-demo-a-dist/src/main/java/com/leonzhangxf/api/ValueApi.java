@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,9 +23,9 @@ public class ValueApi {
 
     @ApiOperation("获取value")
     @GetMapping("value")
-    public ApiResponse<String> value() {
+    public ResponseEntity<ApiResponse<String>> value() {
         logger.debug("The inject value is {}.", value);
-        return ApiResponse.ok(value);
+        return ResponseEntity.badRequest().body(ApiResponse.ok(value));
     }
 
     @ApiOperation("获取value实体")
