@@ -18,6 +18,13 @@
         <module>config-server</module>
         <!-- 注册服务eureka -->
         <module>eureka-server</module>
+
+        <!-- 公共包 -->
+        <module>cd-common</module>
+
+        <!-- client demo -->
+        <module>client-demo-a</module>
+        <module>client-demo-b</module>
     </modules>
 
     <!--
@@ -29,9 +36,8 @@
         <java.version>1.8</java.version>
 
         <!-- spring -->
-        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <spring.boot.version>2.0.6.RELEASE</spring.boot.version>
         <spring.cloud.version>Finchley.SR2</spring.cloud.version>
-        <spring.cloud.config.verison>2.0.2.RELEASE</spring.cloud.config.verison>
 
         <!-- dao -->
         <mysql.connector.version>6.0.6</mysql.connector.version>
@@ -57,25 +63,10 @@
             <!-- spring boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
+                <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring.boot.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${spring.boot.version}</version>
-                <optional>true</optional>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- spring cloud -->
@@ -83,14 +74,6 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring.cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- spring cloud config -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-config</artifactId>
-                <version>${spring.cloud.config.verison}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -117,6 +100,7 @@
                 <version>${mysql.connector.version}</version>
             </dependency>
 
+            <!-- utils -->
             <!-- swagger -->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -140,6 +124,12 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -161,6 +151,12 @@
             <id>test</id>
             <properties>
                 <profileActive>test</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <profileActive>uat</profileActive>
             </properties>
         </profile>
         <profile>
