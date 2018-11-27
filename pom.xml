@@ -253,6 +253,7 @@
                 <directory>${project.basedir}/src/main/resources</directory>
                 <includes>
                     <include>application.yml</include>
+                    <include>bootstrap.yml</include>
                     <include>application-${profileActive}.yml</include>
                 </includes>
                 <filtering>true</filtering>
@@ -261,6 +262,8 @@
                 <directory>${project.basedir}/src/main/resources</directory>
                 <includes>
                     <include>static/**</include>
+                    <include>config/**</include>
+                    <include>template/**</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>

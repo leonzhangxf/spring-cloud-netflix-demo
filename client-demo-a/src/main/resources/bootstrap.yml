@@ -3,12 +3,15 @@ server:
 
 spring:
   application:
-    name: clientdemoa
-  profiles:
-    active: dev
+    name: client-demo-a
   cloud:
     config:
       label: master
       discovery:
         enabled: true
-        service-id: configserver
+        service-id: config-server
+      profile: @profileActive@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka/

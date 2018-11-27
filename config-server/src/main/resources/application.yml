@@ -1,9 +1,6 @@
-server:
-  port: 10000
-
 spring:
   application:
-    name: configserver
+    name: config-server
   profiles:
     active: native
     include: @profileActive@

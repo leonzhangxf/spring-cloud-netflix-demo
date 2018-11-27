@@ -1,0 +1,8 @@
+swagger:
+  enabled: true
+  title: clientdemoa接口文档
+  description: clientdemoa接口文档描述
+  contact:
+    name: 张晓峰
+    url: https://leonzhangxf.com
+    email: leonzhangxf@gmail.com
