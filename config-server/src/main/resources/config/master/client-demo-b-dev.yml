@@ -1,3 +1,23 @@
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+logging:
+  level:
+    root: info
+    com.leonzhangxf: debug
+
 swagger:
   enabled: true
   title: clientdemob接口文档

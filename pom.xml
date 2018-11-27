@@ -25,6 +25,9 @@
         <!-- client demo -->
         <module>client-demo-a</module>
         <module>client-demo-b</module>
+        <!-- client demmo open api -->
+        <module>client-demo-a-api</module>
+        <module>cd-common-api</module>
     </modules>
 
     <!--

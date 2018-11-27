@@ -23,12 +23,3 @@ management:
     web:
       exposure:
         include: "*"
-
-feign:
-  hystrix:
-    enabled: true
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
