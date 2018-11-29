@@ -8,3 +8,12 @@ zuul:
     demo-b:
       path: /b/**
       serviceId: client-demo-b-dist
+
+swagger:
+  enabled: true
+  title: gateway接口文档
+  description: gateway接口文档描述
+  contact:
+    name: 张晓峰
+    url: https://leonzhangxf.com
+    email: leonzhangxf@gmail.com

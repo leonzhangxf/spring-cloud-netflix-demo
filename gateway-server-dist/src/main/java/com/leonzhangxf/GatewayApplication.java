@@ -19,5 +19,4 @@ public class GatewayApplication {
         new SpringApplicationBuilder(GatewayApplication.class).web(WebApplicationType.SERVLET).run(args);
     }
 
-
 }

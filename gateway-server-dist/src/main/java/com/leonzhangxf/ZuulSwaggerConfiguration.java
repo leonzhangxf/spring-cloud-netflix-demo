@@ -1,5 +1,6 @@
 package com.leonzhangxf;
 
+import ch.qos.logback.core.util.StringCollectionUtil;
 import com.leonzhangxf.configuration.SwaggerConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -36,22 +37,30 @@ public class ZuulSwaggerConfiguration extends SwaggerConfiguration {
         @Override
         public List<SwaggerResource> get() {
             List<SwaggerResource> resources = new ArrayList<>();
+            resolveResourcesByRoutes(resources);
+            return resources;
+        }
 
+        private void resolveResourcesByRoutes(List<SwaggerResource> resources) {
             if (!CollectionUtils.isEmpty(routes)) {
+                String serviceName;
+                StringBuilder url;
+                ZuulProperties.ZuulRoute zuulRoute;
+                String serviceUrl;
                 for (Map.Entry<String, ZuulProperties.ZuulRoute> entry : routes.entrySet()) {
-                    String serviceName = entry.getKey();
-                    ZuulProperties.ZuulRoute zuulRoute = entry.getValue();
-                    StringBuilder url = new StringBuilder();
-                    String serviceUrl = zuulRoute.getPath().replaceAll("\\*", "");
-                    if (serviceUrl.endsWith("/")) {
-                        serviceUrl = serviceUrl.substring(0, serviceUrl.lastIndexOf("/"));
+                    serviceName = entry.getKey();
+                    zuulRoute = entry.getValue();
+                    url = new StringBuilder();
+                    if (!StringUtils.hasText(serviceName) || null == zuulRoute
+                            || !StringUtils.hasText(zuulRoute.getPath())) {
+                        continue;
                     }
+                    serviceUrl = StringUtils.replace(zuulRoute.getPath(), "/**", "");
                     url.append(prefix).append(serviceUrl).append(DEFAULT_SWAGGER_DOC_URL_SUFFIX);
 
                     resources.add(swaggerResource(serviceName, url.toString()));
                 }
             }
-            return resources;
         }
 
         private SwaggerResource swaggerResource(String name, String url) {
