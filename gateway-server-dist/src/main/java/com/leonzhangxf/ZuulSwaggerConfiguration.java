@@ -48,19 +48,16 @@ public class ZuulSwaggerConfiguration extends SwaggerConfiguration {
                     }
                     url.append(prefix).append(serviceUrl).append(DEFAULT_SWAGGER_DOC_URL_SUFFIX);
 
-                    resources.add(swaggerResource(serviceName, url.toString(), null));
+                    resources.add(swaggerResource(serviceName, url.toString()));
                 }
             }
             return resources;
         }
 
-        private SwaggerResource swaggerResource(String name, String url, String version) {
+        private SwaggerResource swaggerResource(String name, String url) {
             SwaggerResource swaggerResource = new SwaggerResource();
             swaggerResource.setName(name);
             swaggerResource.setUrl(url);
-            if (StringUtils.hasText(version)) {
-                swaggerResource.setSwaggerVersion(version);
-            }
             return swaggerResource;
         }
     }
