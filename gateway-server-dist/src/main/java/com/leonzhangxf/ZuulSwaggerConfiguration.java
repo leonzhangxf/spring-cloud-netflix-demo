@@ -1,6 +1,5 @@
 package com.leonzhangxf;
 
-import ch.qos.logback.core.util.StringCollectionUtil;
 import com.leonzhangxf.configuration.SwaggerConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -52,7 +51,10 @@ public class ZuulSwaggerConfiguration extends SwaggerConfiguration {
                     zuulRoute = entry.getValue();
                     url = new StringBuilder();
                     if (!StringUtils.hasText(serviceName) || null == zuulRoute
-                            || !StringUtils.hasText(zuulRoute.getPath())) {
+                            || !StringUtils.hasText(zuulRoute.getPath())
+                            // 通过物理URL或者微服务内进行调用，必须至少有一个。
+                            || (!StringUtils.hasText(zuulRoute.getUrl())
+                            && !StringUtils.hasText(zuulRoute.getServiceId()))) {
                         continue;
                     }
                     serviceUrl = StringUtils.replace(zuulRoute.getPath(), "/**", "");
