@@ -1,0 +1,10 @@
+# 网关配置
+zuul:
+  prefix: /api
+  routes:
+    demo-a:
+      path: /a/**
+      serviceId: client-demo-a-dist
+    demo-b:
+      path: /b/**
+      serviceId: client-demo-b-dist

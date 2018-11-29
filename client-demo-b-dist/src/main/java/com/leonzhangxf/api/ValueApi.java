@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,10 @@ public class ValueApi {
     public ApiResponse<String> value() {
         ApiResponse<String> response = clientDemoAClient.value();
         logger.debug("The value is {}.", response);
+        String message = response.getMessage();
+        if (StringUtils.hasText(message)) {
+            response.setData(message + " bbb");
+        }
         return response;
     }
 
@@ -32,6 +37,10 @@ public class ValueApi {
     public ApiResponse<ValueBeanDTO> valueBean() {
         ApiResponse<ValueBeanDTO> response = clientDemoAClient.valueBean();
         logger.debug("The value bean is {}.", response);
+        ValueBeanDTO data = response.getData();
+        if (null != data && StringUtils.hasText(data.getStr())) {
+            data.setStr(data.getStr() + " bbb");
+        }
         return response;
     }
 
