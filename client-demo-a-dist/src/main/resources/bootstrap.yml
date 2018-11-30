@@ -13,6 +13,11 @@ spring:
       profile: @profileActive@
 
 eureka:
+  instance:
+    ##续约更新时间间隔设置5秒，m默认30s
+    lease-renewal-interval-in-seconds: 15
+    ##续约到期时间10秒，默认是90秒
+    lease-expiration-duration-in-seconds: 30
   client:
     service-url:
       defaultZone: http://localhost:10001/eureka/
