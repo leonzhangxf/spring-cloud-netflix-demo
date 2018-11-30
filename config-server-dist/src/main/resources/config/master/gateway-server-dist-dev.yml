@@ -3,6 +3,9 @@ zuul:
   prefix: /api
   routes:
     # 微服务集群内通过serviceId查找
+    auth:
+      path: /auth/**
+      serviceId: auth-server-dist
     demo-a:
       path: /a/**
       serviceId: client-demo-a-dist

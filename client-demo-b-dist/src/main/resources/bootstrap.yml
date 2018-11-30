@@ -22,6 +22,19 @@ eureka:
     service-url:
       defaultZone: http://localhost:10001/eureka/
 
+# 开启feign的hystrix熔断器
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
 # 暴露actuator节点
 management:
   endpoints:
@@ -29,3 +42,4 @@ management:
       exposure:
         include:
           - "refresh"
+

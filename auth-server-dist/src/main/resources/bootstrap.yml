@@ -1,0 +1,55 @@
+server:
+  port: 10003
+
+spring:
+  application:
+    name: auth-server-dist
+  cloud:
+    config:
+      label: master
+      discovery:
+        enabled: true
+        service-id: config-server-dist
+      profile: @profileActive@
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/auth?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+    druid:
+      enable: true
+      max-active: 50
+      min-idle: 5
+  jpa:
+    show-sql: true
+    open-in-view: false
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password: 123456
+    timeout: 5000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 5
+        max-wait: 2000ms
+        min-idle: 1
+
+eureka:
+  instance:
+    ##续约更新时间间隔设置5秒，m默认30s
+    lease-renewal-interval-in-seconds: 15
+    ##续约到期时间10秒，默认是90秒
+    lease-expiration-duration-in-seconds: 30
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka/
+
+# 暴露actuator节点
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "refresh"

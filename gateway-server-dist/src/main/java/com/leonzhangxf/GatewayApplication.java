@@ -2,6 +2,7 @@ package com.leonzhangxf;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZuulProxy
+@EnableOAuth2Sso
 @Import({
         ZuulSwaggerConfiguration.class
 })
