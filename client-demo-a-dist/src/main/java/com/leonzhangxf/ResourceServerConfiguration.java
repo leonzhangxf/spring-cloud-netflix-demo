@@ -9,9 +9,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
+        http
+                .authorizeRequests()
+                .antMatchers("/v2/api-docs").permitAll()
+                .anyRequest().authenticated().and()
                 .httpBasic();
     }
 }
