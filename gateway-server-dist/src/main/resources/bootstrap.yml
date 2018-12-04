@@ -40,8 +40,6 @@ security:
       access-token-uri: http://localhost:10003/oauth/token
       user-authorization-uri: http://localhost:10003/oauth/authorize
     resource:
-      id: openid
-      # user-info-uri: http://localhost:10002/api/auth/userinfo
       user-info-uri: http://localhost:10003/userinfo
       prefer-token-info: false
 
