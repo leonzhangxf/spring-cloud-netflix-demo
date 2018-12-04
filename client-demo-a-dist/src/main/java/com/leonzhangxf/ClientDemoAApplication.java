@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Import;
 @EnableDiscoveryClient
 @Import({
         SwaggerConfiguration.class,
-        ResourceServerConfiguration.class
 })
 public class ClientDemoAApplication {
 
