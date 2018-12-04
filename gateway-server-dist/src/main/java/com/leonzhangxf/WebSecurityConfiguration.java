@@ -17,15 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Order(95)
+@Order(101)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and()
+        http.antMatcher("/**").authorizeRequests().anyRequest().authenticated().and()
                 .csrf().csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
-                .logout().permitAll()
+                .logout().logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/");
     }
 

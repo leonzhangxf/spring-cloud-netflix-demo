@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZuulProxy
@@ -26,7 +28,12 @@ public class GatewayApplication {
     }
 
     @RequestMapping("/login")
-    public String dashboard() {
+    public String login() {
         return "redirect:/";
+    }
+
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
     }
 }
