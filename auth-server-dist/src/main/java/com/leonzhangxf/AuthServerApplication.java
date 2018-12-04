@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * authserver参考项目
+ * https://github.com/spring-cloud-samples/authserver.git
+ * <p>
+ * sso参考项目
+ * https://github.com/spring-cloud-samples/sso.git
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
 @Import({
