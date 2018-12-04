@@ -1,7 +1,6 @@
 package com.leonzhangxf.api;
 
 import com.leonzhangxf.dao.UserRepository;
-import com.leonzhangxf.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,9 @@ public class OauthApi {
 
     @ApiOperation("userinfo")
     @RequestMapping("/userinfo")
-    public User userInfo(Principal user) {
-        return userRepository.findByUsername(user.getName());
+    public Principal userInfo(Principal user) {
+//        return userRepository.findByUsername(user.getName());
+        return user;
     }
 
     @Autowired

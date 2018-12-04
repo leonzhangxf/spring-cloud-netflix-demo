@@ -2,7 +2,9 @@ package com.leonzhangxf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Order(SecurityProperties.BASIC_AUTH_ORDER - 5)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -34,12 +37,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.parentAuthenticationManager(authenticationManagerBean());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().permitAll().and()
-                .authorizeRequests().anyRequest().authenticated();
+        http
+                .formLogin().permitAll().and()
+                .authorizeRequests()
+                .antMatchers("/", "/oauth/**").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Override

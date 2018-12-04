@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         AuthorizationServerConfiguration.class,
         WebSecurityConfiguration.class,
 })
-@Controller
+@SessionAttributes("authorizationRequest")
 public class AuthServerApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {

@@ -42,4 +42,3 @@ security:
     resource:
       user-info-uri: http://localhost:10003/userinfo
       prefer-token-info: false
-
