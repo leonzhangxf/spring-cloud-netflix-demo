@@ -37,7 +37,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin().loginPage("/login").permitAll().and()
+                .formLogin().loginPage("/auth/login").permitAll().and()
                 .authorizeRequests()
                 .antMatchers("/error").permitAll()
                 .anyRequest().authenticated();
