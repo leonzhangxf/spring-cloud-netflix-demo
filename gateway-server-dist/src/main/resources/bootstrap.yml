@@ -11,6 +11,18 @@ spring:
         enabled: true
         service-id: config-server-dist
       profile: @profileActive@
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password: 123456
+    timeout: 5000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 5
+        max-wait: 2000ms
+        min-idle: 1
 
 eureka:
   instance:
@@ -39,6 +51,11 @@ security:
       client-secret: auth
       access-token-uri: http://localhost:10003/oauth/token
       user-authorization-uri: http://localhost:10003/oauth/authorize
+      scope: all
     resource:
       user-info-uri: http://localhost:10003/userinfo
       prefer-token-info: false
+
+logging:
+  level:
+    org.springframework.security: debug
