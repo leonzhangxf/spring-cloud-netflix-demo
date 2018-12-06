@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,9 +21,12 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
 import java.util.*;
 
 @EnableAuthorizationServer
@@ -86,7 +90,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         baseClientDetails.setClientId("auth");
         baseClientDetails.setClientSecret("auth");
         baseClientDetails.setAuthorizedGrantTypes(Arrays.asList("authorization_code",
-                "password", "refresh_token", "client_credentials"));
+                "refresh_token", "client_credentials"));
         baseClientDetails.setScope(Arrays.asList("all"));
         Set<String> redirectUris = new HashSet<>();
         redirectUris.add("http://localhost:10002/");

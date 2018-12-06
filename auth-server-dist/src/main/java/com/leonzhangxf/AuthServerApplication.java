@@ -35,8 +35,8 @@ public class AuthServerApplication implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/oauth/confirm_access").setViewName("authorize");
-        registry.addViewController("/oauth/error").setViewName("error");
+        registry.addViewController("/auth/login").setViewName("login");
+        registry.addViewController("/auth/oauth/confirm_access").setViewName("authorize");
+        registry.addViewController("/auth/oauth/error").setViewName("error");
     }
 }
