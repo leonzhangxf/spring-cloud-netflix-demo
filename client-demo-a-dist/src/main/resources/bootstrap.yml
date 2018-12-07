@@ -30,15 +30,15 @@ management:
         include:
           - "refresh"
 
+logging:
+  level:
+    org.springframework.security: debug
+
 security:
   oauth2:
     client:
-#      access-token-uri: http://localhost:10002/api/auth/oauth/token
-#      user-authorization-uri: http://localhost:10002/api/auth/oauth/authorize
-      access-token-uri: http://localhost:10003/oauth/token
-      user-authorization-uri: http://localhost:10003/oauth/authorize
+      client-id: gateway
+      client-secret: gateway
     resource:
       id: client-demo-a-dist
-#      user-info-uri: http://localhost:10002/api/auth/userinfo
-      user-info-uri: http://localhost:10003/userinfo
-      prefer-token-info: false
+      token-info-uri: http://localhost:10003/auth/oauth/check_token

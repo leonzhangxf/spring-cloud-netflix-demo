@@ -56,6 +56,11 @@ security:
       token-info-uri: http://localhost:10003/auth/oauth/check_token
 
 
-logging:
-  level:
-    org.springframework.security: debug
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

@@ -15,8 +15,8 @@ import java.security.Principal;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableZuulProxy
 @EnableOAuth2Sso
+@EnableZuulProxy
 @Import({
         ZuulSwaggerConfiguration.class,
 })
@@ -38,5 +38,4 @@ public class GatewayApplication {
         System.out.println(String.format("User is: %s", user));
         return user;
     }
-
 }

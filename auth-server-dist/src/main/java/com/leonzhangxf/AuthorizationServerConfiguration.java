@@ -101,6 +101,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         redirectUris.add("http://localhost:10002/login");
         baseClientDetails.setRegisteredRedirectUri(redirectUris);
 
+        // 对应client 能够使用的resource资源信息
+        baseClientDetails.setResourceIds(Arrays.asList("client-demo-a-dist"));
+
         clientDetailsStore.put(baseClientDetails.getClientId(), baseClientDetails);
         inMemoryClientDetailsService.setClientDetailsStore(clientDetailsStore);
         return inMemoryClientDetailsService;

@@ -3,19 +3,25 @@ zuul:
   prefix: /api
   routes:
     # 微服务集群内通过serviceId查找
-    auth:
-      path: /auth/**
-      serviceId: auth-server-dist
     demo-a:
       path: /a/**
       serviceId: client-demo-a-dist
+      sensitive-headers:
     demo-b:
       path: /b/**
       serviceId: client-demo-b-dist
+      sensitive-headers:
     # 外部服务通过url跳转
     boxuegu:
       path: /bxg/**
       url: http://211.103.142.26:5881
+
+# 配置用于传递对应的oauth验证信息
+# 需要在对应的route service中加上“sensitive-headers:”空参数来允许请求传递“authorization”请求头
+proxy:
+  auth:
+    routes:
+      demo-a: oauth2
 
 swagger:
   enabled: true
