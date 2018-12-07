@@ -40,21 +40,21 @@ management:
     web:
       exposure:
         include:
-          - "refresh"
+        - "refresh"
 
 security:
   oauth2:
     sso:
       login-path: /login
     client:
-      client-id: auth
-      client-secret: auth
-      access-token-uri: http://localhost:10003/oauth/token
-      user-authorization-uri: http://localhost:10003/oauth/authorize
-      scope: all
+      client-id: gateway
+      client-secret: gateway
+      access-token-uri: http://localhost:10003/auth/oauth/token
+      user-authorization-uri: http://localhost:10003/auth/oauth/authorize
+      scope: gateway
     resource:
-      user-info-uri: http://localhost:10003/userinfo
-      prefer-token-info: false
+      token-info-uri: http://localhost:10003/auth/oauth/check_token
+
 
 logging:
   level:

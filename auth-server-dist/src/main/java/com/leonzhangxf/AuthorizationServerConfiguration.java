@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -21,22 +21,19 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
-import java.security.KeyPair;
 import java.util.*;
 
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    // access token 有效期，默认12小时
-    private static final Integer DEFAULT_TOKEN_VALIDITY_SECONDS = 60 * 60 * 12;
+    // access token 有效期，默认1小时
+    private static final Integer DEFAULT_TOKEN_VALIDITY_SECONDS = 60 * 60;
 
-    // refresh token 有效期，默认30天
-    private static final Integer DEFAULT_REFRESH_TOKEN_VALIDITY_SECONDS = 60 * 60 * 24 * 30;
+    // refresh token 有效期，默认10分钟
+    private static final Integer DEFAULT_REFRESH_TOKEN_VALIDITY_SECONDS = 60 * 10;
 
     private RedisConnectionFactory redisConnectionFactory;
 
@@ -49,7 +46,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     private AuthenticationManager authenticationManager;
 
-    private PasswordEncoder passwordEncoder;
+    /**
+     * TODO
+     * 这里测试，密码不进行加密，生产使用需要进行加密
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     /**
      * 使用redis存储token
@@ -60,7 +64,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     /**
-     * token 处理service
+     * token service
      */
     @Primary
     @Bean
@@ -70,13 +74,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         tokenServices.setSupportRefreshToken(true);
         tokenServices.setAccessTokenValiditySeconds(DEFAULT_TOKEN_VALIDITY_SECONDS);
         tokenServices.setRefreshTokenValiditySeconds(DEFAULT_REFRESH_TOKEN_VALIDITY_SECONDS);
-
-        tokenServices.setClientDetailsService(clientDetailsService());
         return tokenServices;
     }
 
     /**
      * client 信息获取service
+     * <p>
+     * "authorization_code", "refresh_token", "client_credentials", "implicit", "password"
      */
     @Bean
     public ClientDetailsService clientDetailsService() {
@@ -87,11 +91,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         Map<String, ClientDetails> clientDetailsStore = new HashMap<>();
 
         BaseClientDetails baseClientDetails = new BaseClientDetails();
-        baseClientDetails.setClientId("auth");
-        baseClientDetails.setClientSecret("auth");
-        baseClientDetails.setAuthorizedGrantTypes(Arrays.asList("authorization_code",
-                "refresh_token", "client_credentials"));
-        baseClientDetails.setScope(Arrays.asList("all"));
+        baseClientDetails.setClientId("gateway");
+        baseClientDetails.setClientSecret("gateway");
+        baseClientDetails.setAuthorizedGrantTypes(Arrays.asList("authorization_code", "refresh_token",
+                "client_credentials", "implicit", "password"));
+        baseClientDetails.setScope(Arrays.asList("gateway"));
         Set<String> redirectUris = new HashSet<>();
         redirectUris.add("http://localhost:10002/");
         redirectUris.add("http://localhost:10002/login");
@@ -107,18 +111,20 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        // token key 的获取权限为所有均可
+        // token key获取接口权限 /oauth/token_key
         security.tokenKeyAccess("permitAll()");
-        // 检查 token 的权限为认证过的
-        security.checkTokenAccess("isAuthenticated()");
+        // access_token验证接口权限 /oauth/check_token
+        security.checkTokenAccess("permitAll()");
 
+        //允许通过form表单来进行client认证
         security.allowFormAuthenticationForClients();
 
-        security.passwordEncoder(passwordEncoder);
+        //密码编码器
+        security.passwordEncoder(passwordEncoder());
     }
 
     /**
-     * 配置client
+     * 配置client列表
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -126,21 +132,21 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     /**
-     * 配置oauth2 endpoint相关
+     * oauth2协议中相关endpoint的配置
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        // 配置 /oauth/token 允许请求的HTTP方法
         endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 
+        //认证管理器
         endpoints.authenticationManager(authenticationManager);
+
+        //用户信息服务
         endpoints.userDetailsService(userDetailsService);
 
+        //token 服务
         endpoints.tokenServices(redisTokenServices());
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Autowired

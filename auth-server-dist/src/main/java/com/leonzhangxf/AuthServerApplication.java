@@ -39,4 +39,5 @@ public class AuthServerApplication implements WebMvcConfigurer {
         registry.addViewController("/auth/oauth/confirm_access").setViewName("authorize");
         registry.addViewController("/auth/oauth/error").setViewName("error");
     }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 
@@ -18,7 +19,6 @@ import java.security.Principal;
 @EnableOAuth2Sso
 @Import({
         ZuulSwaggerConfiguration.class,
-        WebSecurityConfiguration.class
 })
 @Controller
 public class GatewayApplication {
@@ -33,7 +33,10 @@ public class GatewayApplication {
     }
 
     @RequestMapping("/user")
+    @ResponseBody
     public Principal user(Principal user) {
+        System.out.println(String.format("User is: %s", user));
         return user;
     }
+
 }
