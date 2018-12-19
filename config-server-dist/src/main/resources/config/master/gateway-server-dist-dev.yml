@@ -22,6 +22,7 @@ proxy:
   auth:
     routes:
       demo-a: oauth2
+      boxuegu: none
 
 swagger:
   enabled: true
