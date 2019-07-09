@@ -18,10 +18,6 @@ spring:
     url: jdbc:mysql://localhost:3308/auth?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
-    druid:
-      enable: true
-      max-active: 50
-      min-idle: 5
   jpa:
     show-sql: true
   redis:

@@ -3,6 +3,7 @@ package com.leonzhangxf;
 import com.leonzhangxf.configuration.SwaggerConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -20,6 +21,7 @@ import java.util.Map;
  *
  * @author leonzhangxf 20181129
  */
+@Configuration
 @ConfigurationProperties("zuul")
 public class ZuulSwaggerConfiguration extends SwaggerConfiguration {
 
@@ -50,11 +52,13 @@ public class ZuulSwaggerConfiguration extends SwaggerConfiguration {
                     serviceName = entry.getKey();
                     zuulRoute = entry.getValue();
                     url = new StringBuilder();
-                    if (!StringUtils.hasText(serviceName) || null == zuulRoute
-                            || !StringUtils.hasText(zuulRoute.getPath())
-                            // 通过物理URL或者微服务内进行调用，必须至少有一个。
-                            || (!StringUtils.hasText(zuulRoute.getUrl())
-                            && !StringUtils.hasText(zuulRoute.getServiceId()))) {
+
+                    boolean skip = !StringUtils.hasText(serviceName) || null == zuulRoute
+                        || !StringUtils.hasText(zuulRoute.getPath())
+                        // 通过物理URL或者微服务内进行调用，必须至少有一个。
+                        || (!StringUtils.hasText(zuulRoute.getUrl())
+                        && !StringUtils.hasText(zuulRoute.getServiceId()));
+                    if (skip) {
                         continue;
                     }
                     serviceUrl = StringUtils.replace(zuulRoute.getPath(), "/**", "");
