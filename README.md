@@ -1,2 +1,2 @@
 # cloud-demo
-A spring cloud use demo.
+A spring cloud netflix demo.
